@@ -23,6 +23,16 @@ app.patch('/employees/:id', (req, res) => {
     res.json(emp)
 
 })
+app.delete('/employees/:id',(req,res)=>{
+    const id=Number(req.params.id)
+    const originallength =employedetails.length
+    employedetails=employedetails.filter(det=>det.id!==id)
+    if(originallength===employedetails.length){
+        return res.status(404).json({message:"item not found "})
+    }
+    res.json(204).send() 
+
+})
 
 app.listen(process.env.PORT, () => {
     console.log("server running on port:", process.env.PORT)
