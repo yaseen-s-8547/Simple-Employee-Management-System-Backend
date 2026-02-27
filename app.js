@@ -6,7 +6,13 @@ app.use(cors())
 app.use(express.json())
 let employedetails = []
 app.get('/employees', (req, res) => {
-    res.json(employedetails)
+    const search =req.query.search
+    if(!search){
+        return  res.json(employedetails)
+    }
+    const filtereditem=employedetails.filter(det=>det.name?.toLowerCase().includes(search.toLowerCase())||det.id.toString().includes(search))
+
+    res.json(filtereditem)
 })
 app.post('/employees', (req, res) => {
     const { name } = req.body
@@ -33,7 +39,7 @@ app.delete('/employees/:id',(req,res)=>{
     res.json(204).send() 
 
 })
-
+const PORT = process.env.PORT || 5000
 app.listen(process.env.PORT, () => {
     console.log("server running on port:", process.env.PORT)
 })
