@@ -5,7 +5,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 let employedetails = []
-app.get('/employees', (req, res) => {
+app.get('https://simple-employee-management-system-u5c1.onrender.com/employees', (req, res) => {
     const search =req.query.search
     if(!search){
         return  res.json(employedetails)
@@ -14,14 +14,14 @@ app.get('/employees', (req, res) => {
 
     res.json(filtereditem)
 })
-app.post('/employees', (req, res) => {
+app.post('https://simple-employee-management-system-u5c1.onrender.com/employees', (req, res) => {
     const { name } = req.body
     const newEmployee = { id: Date.now(), name: name  }
     employedetails.push(newEmployee)
     res.json(newEmployee)
 
 })
-app.patch('/employees/:id', (req, res) => {
+app.patch('https://simple-employee-management-system-u5c1.onrender.com/employees/:id', (req, res) => {
     const  id  = Number(req.params.id)
     const emp = employedetails.find(e => e.id === id)
     if (!emp) return res.status(404).json({ message: "no employee found" })
@@ -29,7 +29,7 @@ app.patch('/employees/:id', (req, res) => {
     res.json(emp)
 
 })
-app.delete('/employees/:id',(req,res)=>{
+app.delete('https://simple-employee-management-system-u5c1.onrender.com/employees/:id',(req,res)=>{
     const id=Number(req.params.id)
     const originallength =employedetails.length
     employedetails=employedetails.filter(det=>det.id!==id)
